@@ -34,7 +34,7 @@
 
 <body>
     <?php include 'require/_dbconn.php'; ?>
-    <?php include "require/_header.php"; ?>
+    <?php include "require/_header.html"; ?>
     <?php
     // echo htmlspecialchars($_GET['search']);
     $_GET['search'] = filter_input(INPUT_GET,'search', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -42,13 +42,69 @@
     
     ?>
     <?php
-        $search = $_GET['search'];
-        $sql = "SELECT * FROM `tread` WHERE MATCH (tread_title, tread_desc) against ('$search')";
-        $result = mysqli_query($conn, $sql);
-        $num = mysqli_num_rows($result);
-        $noresult = true;
+        // Enable error reporting for debugging
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
         
-    
+        // Debug information (hidden in HTML comment)
+        echo "<!-- Debug info: \n";
+        echo "Current database: " . mysqli_query($conn, "SELECT DATABASE()")->fetch_row()[0] . "\n";
+        echo "Tables in database: \n";
+        $tables = mysqli_query($conn, "SHOW TABLES");
+        while ($table = mysqli_fetch_row($tables)) {
+            echo "- " . $table[0] . "\n";
+        }
+        echo "-->";
+        
+        // Check if search parameter exists
+        if(isset($_GET['search'])) {
+            $search = $_GET['search'];
+            
+            // Check if tread table exists
+            $tableCheck = mysqli_query($conn, "SHOW TABLES LIKE 'tread'");
+            if (mysqli_num_rows($tableCheck) == 0) {
+                // Create tread table if it doesn't exist
+                $createTable = "CREATE TABLE `tread` (
+                    `tread_id` INT AUTO_INCREMENT PRIMARY KEY,
+                    `tread_title` VARCHAR(255) NOT NULL,
+                    `tread_desc` TEXT NOT NULL,
+                    `tread_cat_id` INT NOT NULL,
+                    `tread_user_id` INT NOT NULL,
+                    `timestamp` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )";
+                
+                if (!mysqli_query($conn, $createTable)) {
+                    echo "<div class='alert alert-danger'>Error creating tread table: " . mysqli_error($conn) . "</div>";
+                }
+            }
+            
+            // Also search in category table
+            $sql1 = "SELECT t.* FROM `tread` t 
+                    JOIN `category` c ON t.tread_cat_id = c.category_id
+                    WHERE t.tread_title LIKE '%$search%' 
+                    OR t.tread_desc LIKE '%$search%'
+                    OR c.category_name LIKE '%$search%'";
+                    
+            // Debug SQL query (hidden in HTML comment)
+            echo "<!-- SQL Query: $sql1 -->";
+            
+            $result = mysqli_query($conn, $sql1);
+            
+            if($result) {
+                $num = mysqli_num_rows($result);
+                // Debug result count (hidden in HTML comment)
+                echo "<!-- Query result count: $num -->";
+            } else {
+                echo "<div class='alert alert-danger'>Error executing search query: " . mysqli_error($conn) . "</div>";
+                $num = 0;
+            }
+            
+            $noresult = true;
+        } else {
+            $search = "";
+            $num = 0;
+            $noresult = true;
+        }
     ?>
     <div class="container my-3" id="first">
         <h2 class="text-center">Search Result for <em>"<?php echo $_GET['search']?>"</em> <em>(<?php echo $num;?> results found)</em></h2>
@@ -61,7 +117,7 @@
             $noresult=false;
             
             echo '<div class="searchresult py-2" id="idcontainer">
-            <h3><a href="tread.php?treadid='. $id.'" class="text-primary">'. $title.'</a></h3>
+            <h3><a href="tread.html?treadid='. $id.'" class="text-primary">'. $title.'</a></h3>
             <p><em>'. $desc.'</em></p>
             </div>';
         }   
@@ -83,7 +139,7 @@
 
 
     </div>
-    <?php include 'require/_footer.php'; ?>
+    <?php include 'require/_footer.html'; ?>
 
 
     <!-- Optional JavaScript; choose one of the two! -->

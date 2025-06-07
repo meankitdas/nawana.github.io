@@ -26,7 +26,7 @@
 <body>
     <?php include 'require/_dbconn.php'; ?>
     <?php
-    include 'require/_header.php';
+    include 'require/_header.html';
     ?>
     <?php
     if(isset($_GET['signup']) && $_GET['signup']=="true"){
@@ -205,10 +205,10 @@
             $desc = $row['tread_desc'];
             $id = $row['tread_id'];
             echo '<div class="media">
-        <img src="require/user.jpg" width="34px" class="mr-3 my-2" alt="...">
+        <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg" width="34px" class="mr-3 my-2" alt="User profile">
         <div class="media-body my-2">
-            <h5 class="mt-0"><a href="tread.php?treadid=' . $id.'">' .$title.'</a></h5>
-            <a class="text-dark" href="tread.php?treadid=' . $id.'">' . substr($desc,0,70).'...</a>
+            <h5 class="mt-0"><a href="tread.html?treadid=' . $id.'">' .$title.'</a></h5>
+            <a class="text-dark" href="tread.html?treadid=' . $id.'">' . substr($desc,0,70).'...</a>
         </div>
         </div>';
         }
@@ -225,7 +225,7 @@
         ?>
     </div>
 
-    <?php include 'require/_footer.php'; ?>
+    <?php include 'require/_footer.html'; ?>
 
 
     <!-- Optional JavaScript; choose one of the two! -->

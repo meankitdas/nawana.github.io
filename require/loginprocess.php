@@ -23,7 +23,7 @@ if(isset($_SESSION['readmore']) && $_SESSION['readmore'] == true){
                         $_SESSION['email'] = $email;
                         $_SESSION['id'] = $row['user_id'];
                         $a = $_SESSION['site'];
-                        header("location: /form/readmore.php?catid=$a");
+                        header("location: /readmore.php?catid=$a");
                         exit();
                         // echo 'yeh';
                     }
@@ -31,7 +31,7 @@ if(isset($_SESSION['readmore']) && $_SESSION['readmore'] == true){
                         $showerror = "uyjsd1";
                         $a = $_SESSION['site'];
                         $_SESSION['pass_not'] = true;
-                        header("location: /form/readmore.php?catid=$a&error=$showerror");
+                        header("location: /readmore.php?catid=$a&error=$showerror");
                         // echo 'u r not';
                         exit();
                     }
@@ -41,7 +41,7 @@ if(isset($_SESSION['readmore']) && $_SESSION['readmore'] == true){
                 $showerror = "uyjsd2";
                 $a = $_SESSION['site'];
                 $_SESSION['acc_not'] = true;
-                header("location: /form/readmore.php?catid=$a&lon=$showerror");
+                header("location: /readmore.php?catid=$a&lon=$showerror");
             }
         }
 
@@ -69,14 +69,14 @@ elseif (isset($_SESSION['comment']) && $_SESSION['comment'] == true){
                         $_SESSION['id'] = $row['user_id'];
             
                         $a = $_SESSION['tsite'];
-                        header("location: /form/tread.php?treadid=$a");
+                        header("location: /tread.php?treadid=$a");
                         exit();
                         // echo 'yeh';
                     }
                     else{
                         $showerror = "uyjsd1";
                         $a = $_SESSION['tsite'];
-                        header("location: /form/tread.php?treadid=$a&error=$showerror");
+                        header("location: /tread.php?treadid=$a&error=$showerror");
                         $_SESSION['pass_not'] = true;
                         // echo 'u r not';
                         exit();
@@ -87,7 +87,7 @@ elseif (isset($_SESSION['comment']) && $_SESSION['comment'] == true){
                 $showerror = "uyjsd2";
                 $a = $_SESSION['tsite'];
                 $_SESSION['acc_not'] = true;
-                header("location: /form/tread.php?treadid=$a&lon=$showerror");
+                header("location: /tread.php?treadid=$a&lon=$showerror");
             }
         }
 }
@@ -113,14 +113,14 @@ else{
                         $_SESSION['email'] = $email;
                         $_SESSION['id'] = $row['user_id'];
                         $_SESSION['ex'] = true;
-                        header("location: /form/index.php");
+                        header("location: /index.php");
                         exit();
                         // echo 'yeh';
                     }
                     else{
                         $showerror = "uyjsd1";
                         $_SESSION['pass_not'] = true;
-                        header("location: /form/index.php?error=$showerror");
+                        header("location: /index.php?error=$showerror");
                         // echo 'u r not';
                         exit();
                     }
@@ -129,7 +129,7 @@ else{
             else{
                 $showerror = "uyjsd2";
                 $_SESSION['acc_not'] = true;
-                header("location: /form/index.php?lon=$showerror");
+                header("location: /index.php?lon=$showerror");
             }
         }
 }

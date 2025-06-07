@@ -24,7 +24,7 @@
 
 <body>
 <?php include 'require/_dbconn.php'; ?>
-    <?php include "require/_header.php"; ?>
+    <?php include "require/_header.html"; ?>
     <?php
     if(isset($_GET['signup']) && $_GET['signup']=="true"){
         echo '<div class="alert alert-success alert-dismissible fade show my-0" role="alert">
@@ -105,13 +105,13 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="https://source.unsplash.com/1600x500/?coding,form" class="d-block w-100 rounded" alt="...">
+                <img src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg" class="d-block w-100 rounded" alt="Coding image" style="height: 500px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="https://source.unsplash.com/1600x500/?google logo" class="d-block w-100 rounded" alt="...">
+                <img src="https://images.pexels.com/photos/1591060/pexels-photo-1591060.jpeg" class="d-block w-100 rounded" alt="Technology image" style="height: 500px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="https://source.unsplash.com/1600x500/?hacking" class="d-block w-100 rounded" alt="...">
+                <img src="https://images.pexels.com/photos/577585/pexels-photo-577585.jpeg" class="d-block w-100 rounded" alt="Computer image" style="height: 500px; object-fit: cover;">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
@@ -142,11 +142,11 @@
             echo '
                 <div class="col-md-3 my-2">
                     <div class="card" style="width: 18rem;border-radius: 4rem;">
-                        <img src="https://source.unsplash.com/500x400/?' . $cat . ',coding" class="card-img-top" alt="..." id="img">
+                        <img src="https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg" class="card-img-top" alt="Category image" id="img" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="readmore.php?catid='. $id .'">' . $cat . '</a></h5>
+                            <h5 class="card-title"><a href="readmore.html?catid='. $id .'">' . $cat . '</a></h5>
                             <p class="card-text">' . substr($desc, 0, 100) . '....</p>
-                            <a href="readmore.php?catid='. $id .'" class="btn btn-primary" id="read">Read More</a>
+                            <a href="readmore.html?catid='. $id .'" class="btn btn-primary" id="read">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
 
 
 
-    <?php include 'require/_footer.php'; ?>
+    <?php include 'require/_footer.html'; ?>
 
 
     <!-- Optional JavaScript; choose one of the two! -->
